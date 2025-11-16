@@ -1,41 +1,31 @@
-#!/usr/bin/env groovy
-
 pipeline {
-    agent any
-    tools {
-        nodejs 'node-8.1.3'
-    }
+    agent any 
+
     stages {
-        stage('Build') {
+        stage('Checkout Code') {
             steps {
-                sh 'nodejs --version'
-                sh 'npm install'
-                sh 'gulp lint'
+                echo 'Source code checking out from GitHub.'
             }
         }
-        stage('Test') {
+        
+        stage('Verification Script') {
             steps {
-                sh 'nodejs --version'
-                sh 'gulp test'
+                echo 'Running system verification script...'
+                // Command to check the current directory contents
+                sh 'ls -l' 
+                // Command to display the system's Java version (since Jenkins runs on Java)
+                sh 'java -version'
+                // This stage now serves as your "Test" equivalent for demonstration
             }
         }
     }
+    
     post {
-        always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
-        }
         success {
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
+            echo 'Simple CI Pipeline Finished Successfully!'
         }
         failure {
-            echo 'I failed :('
-        }
-        changed {
-            echo 'Things were different before...'
+            echo 'Pipeline Failed! Check Jenkins console output.'
         }
     }
 }
