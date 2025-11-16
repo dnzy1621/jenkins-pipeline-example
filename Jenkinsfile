@@ -10,12 +10,12 @@ pipeline {
         
         stage('Verification Script') {
             steps {
-                echo 'Running system verification script...'
-                // Command to check the current directory contents
-                sh 'ls -l' 
-                // Command to display the system's Java version (since Jenkins runs on Java)
-                sh 'java -version'
-                // This stage now serves as your "Test" equivalent for demonstration
+                echo 'Running system verification script (Windows)...'
+                // CHANGE: Use 'bat' for Windows Command Prompt execution
+                bat 'dir' // Windows equivalent of 'ls -l'
+                
+                // CHANGE: Use 'bat' for Windows Command Prompt execution
+                bat 'java -version' 
             }
         }
     }
